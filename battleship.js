@@ -31,3 +31,8 @@ function Ship(size) {
   };
 }
 
+function Gameboard(){
+
+}
+
+module.exports = {Ship, Gameboard};
