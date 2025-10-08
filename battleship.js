@@ -84,7 +84,7 @@ function Gameboard(){
             }
 
             if (direction === 'vertical') {
-                if (board[y][x] !== null) {  // still use board[y][x] for consistency
+                if (board[y][x] !== null) { 
                     const hitShip = board[y][x];
                     hitShip.hit();
                     return 'hit';
