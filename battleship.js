@@ -60,11 +60,18 @@ function Gameboard(){
 
         for (let i = 0; i < shipLength; i++) {
             if (direction === 'horizontal') {
-            board[y][x + i] = newShip; // row = y, column = x+i
+            board[y][x + i] = newShip;
             } else {
-            board[y + i][x] = newShip; // row = y+i, column = x
+            board[y + i][x] = newShip;
             }
         }
+        },
+
+        receiveAttack(x, y, direction = null){
+            if(direction === 'horizontal' && (board[x][y] !== null)){
+                const hitShip = board[x][y];
+                hitShip.hit();
+            }
         }
     }
 }
