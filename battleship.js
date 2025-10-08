@@ -45,8 +45,11 @@ function Gameboard(){
     [null, null, null, null, null, null, null, null, null, null]  // row 9
     ];
 
+    const ships = [];
+
     return {
         board,
+        ships,
 
         placeShip(shipLength, x, y, direction = null) {
         if (direction === 'horizontal' && x + shipLength > 10) {
@@ -57,6 +60,7 @@ function Gameboard(){
         }
 
         const newShip = Ship(shipLength);
+        ships.push(newShip);
 
         for (let i = 0; i < shipLength; i++) {
             if (direction === 'horizontal') {
@@ -68,10 +72,31 @@ function Gameboard(){
         },
 
         receiveAttack(x, y, direction = null){
-            if(direction === 'horizontal' && (board[x][y] !== null)){
-                const hitShip = board[x][y];
-                hitShip.hit();
+            if (direction === 'horizontal') {
+                if (board[y][x] !== null) {  // y = row, x = column
+                    const hitShip = board[y][x];
+                    hitShip.hit();
+                    return 'hit';
+                } else {
+                    const miss = board[y][x];
+                    return miss;
+                }
             }
+
+            if (direction === 'vertical') {
+                if (board[y][x] !== null) {  // still use board[y][x] for consistency
+                    const hitShip = board[y][x];
+                    hitShip.hit();
+                    return 'hit';
+                } else {
+                    const missed = board[y][x];
+                    return missed;
+                }
+            }
+        },
+
+        allSunk(){
+           return ships.every((ship) => ship.isSunk() === true);
         }
     }
 }
